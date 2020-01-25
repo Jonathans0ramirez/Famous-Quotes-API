@@ -1,0 +1,24 @@
+{
+  "name": "generate-changing-life-quote",
+  "version": "1.0.0",
+  "description": "An important customer wants to change everybody life by showing famous qoutes with an image.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonathans0ramirez/Famous-Qoutes-API.git"
+  },
+  "author": "Jonathan Ramírez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jonathans0ramirez/Famous-Qoutes-API/issues"
+  },
+  "homepage": "https://github.com/Jonathans0ramirez/Famous-Qoutes-API#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.8.9",
+    "unirest": "^0.6.0"
+  }
+}
