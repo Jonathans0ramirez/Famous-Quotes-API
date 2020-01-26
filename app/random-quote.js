@@ -26,11 +26,12 @@ function generateRandomQuote () {
 
 function generateRandomQuoteAlt () {
 	return new Promise((resolve) => { 
-		unirest.get('https://api.myjson.com/bins/1gymjm')
+		unirest.get('https://type.fit/api/quotes')
 		.end(function (res) {
 			if (res.error) throw new Error(res.error);
-			console.log(res.body[0].quote)
-			resolve(res.body[Math.floor(Math.random() * (9 - 0) + 0)].quote);
+			let pos = Math.floor(Math.random() * (1642 - 0) + 0);
+			let bodyJSON = JSON.parse(res.body);
+			resolve(bodyJSON[pos].text);
 		});
 	})
 	.catch((err) => {
@@ -40,10 +41,15 @@ function generateRandomQuoteAlt () {
 
 function generateImageFromQuote (quote) {
 	return new Promise((resolve) => { 
-		unirest.get('https://www.googleapis.com/customsearch/v1?key=AIzaSyA84hULMat0t3w4UWaFxEcRI35QesNh9bg&cx=009639176708901267757:zhnzc2bguan&q=' + quote + '&searchType=image')
+		unirest.get('https://www.googleapis.com/customsearch/v1')
+		.query({
+			"key": "AIzaSyA84hULMat0t3w4UWaFxEcRI35QesNh9bg",
+			"cx": "009639176708901267757:zhnzc2bguan",
+			"q": quote,
+			"searchType": "image"
+		})
 		.end(function (res) {
 			if (res.error) throw new Error(res.error);
-			console.log("--------"+res.body.items[0].link)
 			resolve(res.body.items[0].link);
 		});
 	})
@@ -60,25 +66,36 @@ async function generateQuoteImage () {
 			quote,
 			image
 		}
+		var quoteReturn;
 
-		quoteModel.findOne({quote: quoteImage.quote}, function (err, quote) {
-			if (err) {
-				console.log(err);
-			}
-			if (quote) {
-				console.log("Quote has already been saved: "+ quote);
-				return quote;
-			}
-			else {
-				//Stored on DB
-				var quoteDB = new quoteModel(quoteImage).save();
-				return quoteDB;
-			}
-		})
+		let quoteDup = quoteExists(quoteImage);
+
+		if (quoteDup) {
+			quoteReturn = quoteDup;
+		}
+		else {
+			//Stored on DB
+			var quoteDB = new quoteModel(quoteImage).save();
+			quoteReturn = quoteDB;
+		}
+		
+		console.log("Quote: " + quoteReturn);
+		return quoteReturn;
 	}
 	catch (e) {
 		console.error(e);
 	}
+}
+
+function quoteExists (quoteImage) {
+	quoteModel.findOne({quote: quoteImage.quote}, function (err, quote) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			return quote;
+		}
+	});
 }
 
 module.exports = { generateQuoteImage }

@@ -6,12 +6,11 @@ const { generateQuoteImage } = require('./random-quote');
 exports.new = function (req, res) {
     generateQuoteImage()
     .then(newQuote => {
-        console.log(newQuote);
-        res.json({
+        res.send({
             status: "success",
             message: "Quote retireved succesfully",
             data: newQuote
-        });
+        })
     })
     .catch(err => {
         res.json({

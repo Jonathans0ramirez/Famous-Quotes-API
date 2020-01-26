@@ -15,7 +15,7 @@ var quoteController = require('./app/quoteController');
 //Quote routes
 router.route('/generate-changing-life-quote').get(quoteController.new);
 
-router.route('/generate-changing-life-qoute/:quote_id')
+router.route('/generate-changing-life-quote/:quote_id')
 .get(quoteController.view)
 .delete(quoteController.delete)
 

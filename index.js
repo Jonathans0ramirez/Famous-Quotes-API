@@ -10,7 +10,7 @@ const app = express();
 //Use bodyparser to handle post requests and Api Routes in the app
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/api', apiRoutes);
+app.use('/api/v1', apiRoutes);
 
 //Connect to mongoose and set connection variable
 mongoose.connect('mongodb://localhost/generate-changing-life-quote', {
