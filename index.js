@@ -14,7 +14,8 @@ app.use('/api', apiRoutes);
 
 //Connect to mongoose and set connection variable
 mongoose.connect('mongodb://localhost/generate-changing-life-quote', {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
 var db = mongoose.connection;

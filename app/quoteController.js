@@ -1,23 +1,23 @@
 //Quote model and quote-image generator 
 Quote = require('./quoteModel');
-const generateQuoteImage = require('./random-quote');
+const { generateQuoteImage } = require('./random-quote');
 
 //Handle create generated quote-image and check for errors
-exports.new = async function (req, res) {
-    let newQuote = await generateQuoteImage();
-
-    newQuote.get(function (err, quote) {
-        if (err) {
-            res.json({
-                status: "ERROR",
-                message: err,
-            })
-        }
+exports.new = function (req, res) {
+    generateQuoteImage()
+    .then(newQuote => {
+        console.log(newQuote);
         res.json({
             status: "success",
             message: "Quote retireved succesfully",
-            data: quote
+            data: newQuote
         });
+    })
+    .catch(err => {
+        res.json({
+            status: "error",
+            error: err
+        })
     });
 };
 
