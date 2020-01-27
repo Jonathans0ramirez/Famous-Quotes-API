@@ -1,0 +1,265 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "CHANGING LIFE QUOTE GENERATOR",
+        "description": "An important customer wants to change everybody life by showing famous qoutes with an image.",
+        "version": "1.0.0"
+    },
+    
+    "tags": [
+        {
+            "name": "Operations"
+        }
+    ],
+    "paths": {
+        "/api/v1/generate-changing-life-quote": {
+            "get": {
+                "tags": ["Operations"],
+                "description": "Returns a famous quote with its corresponding image link",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Quote"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status500"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/generate-changing-life-quote/{_id}": {
+            "get": {
+                "tags": ["Operations"],
+                "description": "Returns a specific famous quote with its corresponding image link",
+                "responses": {
+                    "200": {
+                        "description": "200 OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Quote"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "400 Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status400"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status404"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status500"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Operations"],
+                "description": "Delete the specific famous quote object",
+                "responses": {
+                    "200": {
+                        "description": "200 Quote deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/QuoteDeleted"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "400 Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status400"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "404 Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status404"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "500 Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Status500"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "_id": {
+                "type": "string",
+                "example": "5e2dac573d8227195003eb3c",
+                "required": true
+            },
+            "quote": {
+                "type": "string",
+                "example": "No one has ever become poor by giving.",
+                "required": true
+            },
+            "image": {
+                "type": "string",
+                "example": "https://www.brainyquote.com/photos_tr/en/a/annefrank/379577/annefrank1-2x.jpg",
+                "required": true
+            },
+            "status": {
+                "type": "string",
+                "example": "200, 400, 500, etc...",
+                "required": true
+            },
+            "statusMessage": {
+                "type": "string",
+                "example": "OK, Quoted found...",
+                "required": true
+            },
+            "statusError": {
+                "type": "string",
+                "example": "Error",
+                "required": true
+            },
+            "messageDelete": {
+                "type": "string",
+                "example": "Quoted Deleted",
+                "required": true
+            },
+            "Quote": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "$ref": "#/components/schemas/_id"
+                    },
+                    "quote": {
+                        "$ref": "#/components/schemas/quote"
+                    },
+                    "image": {
+                        "$ref": "#/components/schemas/image"
+                    }
+                }
+            },
+            "QuoteDeleted": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/status"
+                    },
+                    "message": {
+                        "$ref": "#/components/schemas/messageDelete"
+                    }
+                }
+            },
+            "Status400": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/status"
+                    },
+                    "message": {
+                        "$ref": "#/components/schemas/statusMessage"
+                    }
+                }
+            },
+            "Status404": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/status"
+                    },
+                    "message": {
+                        "$ref": "#/components/schemas/statusMessage"
+                    }
+                }
+            },
+            "Status500": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "$ref": "#/components/schemas/status"
+                    },
+                    "error": {
+                        "$ref": "#/components/schemas/statusError"
+                    }
+                }
+            }
+        }
+    }
+}

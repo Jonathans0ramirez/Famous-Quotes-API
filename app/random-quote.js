@@ -3,28 +3,6 @@ var unirest = require("unirest");
 let quoteModel = require('./quoteModel');
 
 function generateRandomQuote () {
-	var req = unirest("GET", "https://andruxnet-random-famous-quotes.p.rapidapi.com/");
-
-	req.query({
-		"cat": "famous",
-		"count": "1"
-	});
-
-	req.headers({
-		"x-rapidapi-host": "andruxnet-random-famous-quotes.p.rapidapi.com",
-		"x-rapidapi-key": "48fe4c5e1dmsh150ce35fbaf3d0bp181ea5jsnee5898cccf56"
-	});
-
-
-	req.end(function (res) {
-		//if (res.error) throw new Error(res.error);
-
-		//console.log(res.body);
-		return res.body.data[0].quote;
-	});
-}
-
-function generateRandomQuoteAlt () {
 	return new Promise((resolve) => { 
 		unirest.get('https://type.fit/api/quotes')
 		.end(function (res) {
@@ -60,7 +38,7 @@ function generateImageFromQuote (quote) {
 
 async function generateQuoteImage () {
 	try {
-		let quote = await generateRandomQuoteAlt();
+		let quote = await generateRandomQuote();
 		let image = await generateImageFromQuote(quote);
 		let quoteImage = {
 			quote,
@@ -78,8 +56,6 @@ async function generateQuoteImage () {
 			var quoteDB = new quoteModel(quoteImage).save();
 			quoteReturn = quoteDB;
 		}
-		
-		console.log("Quote: " + quoteReturn);
 		return quoteReturn;
 	}
 	catch (e) {

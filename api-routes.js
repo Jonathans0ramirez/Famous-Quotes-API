@@ -5,7 +5,11 @@ let router = require('express').Router();
 router.get('/', function (req, res) {
     res.json({
         status: 'API Its Working',
-        message: 'Welcome!'
+        message: 'Welcome!',
+        routes: {
+            doc: "http://localhost:3000/api-docs",
+            gen_quote: "http://localhost:3000/api/v1/generate-changing-life-quote"
+        }
     });
 });
 
@@ -18,7 +22,6 @@ router.route('/generate-changing-life-quote').get(quoteController.new);
 router.route('/generate-changing-life-quote/:quote_id')
 .get(quoteController.view)
 .delete(quoteController.delete)
-
 
 //Export Routes
 module.exports = router;

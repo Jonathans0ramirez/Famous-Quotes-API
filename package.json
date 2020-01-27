@@ -8,17 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jonathans0ramirez/Famous-Qoutes-API.git"
+    "url": "git+https://github.com/Jonathans0ramirez/Famous-Quotes-API.git"
   },
   "author": "Jonathan Ramírez",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Jonathans0ramirez/Famous-Qoutes-API/issues"
+    "url": "https://github.com/Jonathans0ramirez/Famous-Quotes-API/issues"
   },
-  "homepage": "https://github.com/Jonathans0ramirez/Famous-Qoutes-API#readme",
+  "homepage": "https://github.com/Jonathans0ramirez/Famous-Quotes-API#readme",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.8.9",
+    "swagger-ui-express": "^4.1.3",
     "unirest": "^0.6.0"
   }
 }
